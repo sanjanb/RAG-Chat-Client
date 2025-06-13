@@ -45,18 +45,18 @@ Before you begin, ensure you have met the following requirements:
    OPENAI_API_KEY=your_openai_api_key
    ```
 
-```mermaid
-graph TD
-    A[Start] --> B[Load .env Variables]
-    B --> C[Initialize ChromaDB with OpenAI Embeddings]
-    C --> D[Load & Read Documents (.txt)]
-    D --> E[Split Text into Overlapping Chunks]
-    E --> F[Generate Embeddings for Chunks (OpenAI)]
-    F --> G[Upsert to ChromaDB Collection]
-    G --> H[User Inputs Question]
+```Mermaid
+flowchart TD
+    A[Start] --> B[Load Environment Variables (.env)]
+    B --> C[Initialize ChromaDB & OpenAI Embeddings]
+    C --> D[Load & Read .txt Documents]
+    D --> E[Split Text into Chunks]
+    E --> F[Generate Embeddings with OpenAI]
+    F --> G[Upsert Chunks into ChromaDB]
+    G --> H[User Inputs a Question]
     H --> I[Query ChromaDB for Relevant Chunks]
-    I --> J[Construct Prompt with Context + Question]
-    J --> K[Call OpenAI Chat Model (gpt-3.5-turbo)]
+    I --> J[Create Prompt with Context + Question]
+    J --> K[Generate Response using GPT Model]
     K --> L[Display Final Answer]
     L --> M[End]
 
