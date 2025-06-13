@@ -1,41 +1,78 @@
-<!-- @format -->
-# Welcome to The AI Guild 🚀
+# 🧠 Overview of Document QA Pipeline using OpenAI + ChromaDB
 
-**This code is a part of a module in our vibrant AI community 🚀[Join the AI Guild Community](https://bit.ly/ai-guild-join), where like-minded entrepreneurs and programmers come together to build real-world AI-based solutions.**
+This script builds an end-to-end **Question Answering (QA) System** using:
 
-### What is The AI Guild?
-The AI Guild is a collaborative community designed for developers, tech enthusiasts, and entrepreneurs who want to **build practical AI tools** and solutions. Whether you’re just starting or looking to level up your skills, this is the place to dive deeper into AI in a supportive, hands-on environment.
+- **OpenAI** for generating text embeddings and answers
+- **ChromaDB** for storing and retrieving document chunks via vector similarity
 
-### Why Join Us?
-- **Collaborate with Like-Minded Builders**: Work alongside a community of individuals passionate about AI, sharing ideas and solving real-world problems together.
-- **Access to Exclusive Resources**: Gain entry to our Code & Template Vault, a collection of ready-to-use code snippets, templates, and AI projects.
-- **Guided Learning Paths**: Follow structured paths, from AI Basics for Builders to advanced classes like AI Solutions Lab, designed to help you apply your knowledge.
-- **Weekly Live Calls & Q&A**: Get direct support, feedback, and guidance during live sessions with the community.
-- **Real-World AI Projects**: Work on projects that make an impact, learn from others, and showcase your work.
+---
 
-### Success Stories
-Here’s what some of our members are saying:
-- **"Joining The AI Guild has accelerated my learning. I’ve already built my first AI chatbot with the help of the community!"**
-- **"The live calls and feedback have been game-changers. I’ve implemented AI automation in my business, saving hours each week."**
+## 📂 Folder Structure
 
-### Who is This For?
-If you’re eager to:
-- Build AI tools that solve real problems
-- Collaborate and learn from experienced AI practitioners
-- Stay up-to-date with the latest in AI development
-- Turn your coding skills into actionable solutions
+```
+project-root/
+├── .env                       # Contains OPENAI_API_KEY
+├── main.py                   # Your main script
+├── news_articles/            # Folder with text files to index
+└── chroma_persistent_storage/  # ChromaDB local storage
+```
 
-Then **The AI Guild** is the perfect fit for you.
+---
 
-### Frequently Asked Questions
-- **Q: Do I need to be an expert to join?**
-  - **A:** Not at all! The AI Guild is designed for all skill levels, from beginners to advanced developers.
-- **Q: Will I get personalized support?**
-  - **A:** Yes! You’ll have access to live Q&A sessions and direct feedback on your projects.
-- **Q: What kind of projects can I work on?**
-  - **A:** You can start with small projects like chatbots and automation tools, and progress to more advanced AI solutions tailored to your interests.
+## 🛠️ Key Steps
 
-### How to Get Started
-Want to dive deeper and get the full experience? 🚀[Join the AI Guild Community](https://bit.ly/ai-guild-join) and unlock all the benefits of our growing community.
+### 1. **Load Environment Variables**
+Uses `dotenv` to securely load your OpenAI API key from `.env` file.
 
-We look forward to seeing what you’ll build with us!
+### 2. **Set up ChromaDB Collection**
+Initializes a persistent collection with OpenAI embeddings.
+
+### 3. **Load Documents**
+Reads all `.txt` files from the `news_articles/` folder.
+
+### 4. **Split Documents into Chunks**
+Breaks each document into overlapping chunks (default 1000 chars with 20-char overlap) to ensure context continuity.
+
+### 5. **Generate Embeddings with OpenAI**
+Uses OpenAI’s `text-embedding-3-small` model to convert each chunk into a high-dimensional vector.
+
+### 6. **Store Embeddings in ChromaDB**
+Upserts document chunks and their embeddings into ChromaDB for fast semantic search.
+
+### 7. **Query Documents by Question**
+Given a user question, retrieves the top matching chunks from the vector database.
+
+### 8. **Generate Final Answer**
+Combines the retrieved chunks into a prompt and sends it to OpenAI’s `gpt-3.5-turbo` model to generate a concise answer.
+
+---
+
+## 🧪 Example Query
+
+```python
+question = "tell me about databricks"
+relevant_chunks = query_documents(question)
+answer = generate_response(question, relevant_chunks)
+print(answer)
+```
+
+---
+
+## ✅ Use Cases
+
+- Internal Knowledge Base
+- Document Summarization
+- Legal or Research Paper QA
+- Helpdesk Automation
+
+---
+
+## 🔒 Security Tip
+
+Never commit your `.env` file to version control!
+
+---
+
+## 📌 Summary
+
+This pipeline enables **semantic search** + **natural language answering** from your custom documents with the power of LLMs. It's modular, customizable, and a strong foundation for any AI-powered assistant.
