@@ -45,7 +45,7 @@ Before you begin, ensure you have met the following requirements:
    OPENAI_API_KEY=your_openai_api_key
    ```
 
-```
+```mermaid
 graph TD
     A[Start] --> B[Load .env Variables]
     B --> C[Initialize ChromaDB with OpenAI Embeddings]
