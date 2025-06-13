@@ -45,6 +45,22 @@ Before you begin, ensure you have met the following requirements:
    OPENAI_API_KEY=your_openai_api_key
    ```
 
+```
+graph TD
+    A[Start] --> B[Load .env Variables]
+    B --> C[Initialize ChromaDB with OpenAI Embeddings]
+    C --> D[Load & Read Documents (.txt)]
+    D --> E[Split Text into Overlapping Chunks]
+    E --> F[Generate Embeddings for Chunks (OpenAI)]
+    F --> G[Upsert to ChromaDB Collection]
+    G --> H[User Inputs Question]
+    H --> I[Query ChromaDB for Relevant Chunks]
+    I --> J[Construct Prompt with Context + Question]
+    J --> K[Call OpenAI Chat Model (gpt-3.5-turbo)]
+    K --> L[Display Final Answer]
+    L --> M[End]
+
+```
 ## Usage
 
 1. Place your text documents in the `./news_articles` directory.
